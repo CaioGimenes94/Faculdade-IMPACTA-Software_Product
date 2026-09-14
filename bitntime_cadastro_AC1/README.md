@@ -1,47 +1,62 @@
-# Bitntime — Monitoramento de Bitcoin
+# Bitntime — Sprint 1
 
-## Objetivo do projeto
-- Sistema web para **monitorar o preço do Bitcoin**.
-- Permite ao usuário configurar uma **variação percentual de alerta**.
-- Quando a variação configurada é atingida, o sistema gera um **alerta por e-mail**.
-- Os alertas ficam registrados para posterior **visualização e análise**.
+## 📌 Objetivo da Sprint
 
-## Tecnologias
-- **Front-end:** HTML + CSS
-- **Back-end:** Python + Flask
-- **Banco de dados:** MySQL
-- **API:** Binance — consulta do preço do Bitcoin
-- **Versionamento:** Git/GitHub
+Implementar o fluxo inicial do cadastro de usuários do projeto Bitntime, cobrindo a integração de ponta a ponta entre a interface do usuário (Front-end em HTML/CSS), o processamento de regras de negócio e validações de dados (Back-end em Python/Flask) e a persistência dos registros em banco de dados (MySQL).
 
-## Desenvolvimento por Sprints
+---
 
-### Sprint 1 — Cadastro de usuário
-- Tela de cadastro
-- API para receber os dados
-- Persistência dos usuários no banco
+## 🛠️ Estrutura e Configuração do Ambiente
 
-### Sprint 2 — Configuração de alertas
-- Cadastro da preferência de variação do Bitcoin
-- Associação do alerta ao usuário
-- Persistência das configurações
+### Pre-requisitos
 
-### Sprint 3 — Alertas por e-mail
-- Monitoramento da variação do Bitcoin
-- Disparo do alerta por e-mail
-- Registro dos alertas disparados
+* **Python** 3.x instalado
 
-### Sprint 4 — Dashboard
-- Consulta dos alertas registrados
-- Visualização do histórico
-- Gráfico simples de acompanhamento
-- Organização final da navegação do sistema
 
-## ⚙️ Configuração do Banco de Dados
+* **MySQL** instalado e em execução
 
-Para rodar o projeto localmente, crie um arquivo `.env` na pasta indicada (`\Back`) com as seguintes variáveis:
+---
 
-```env
+### 1. Banco de Dados (MySQL)
+
+1. Certifique-se de que o servidor MySQL esteja rodando.
+2. Execute o scripts SQL fornecido no projeto (`..\BD\CREATE TABLE.sql`) para criar a tabela de usuários.
+
+---
+
+### 2. Back-end (Python / Flask)
+
+1. Caso não tenha, instale as dependências necessárias do projet, por exemplo:
+```bash
+pip install flask mysql-connector-python
+```
+
+2. Crie um arquivo `.env` na pasta indicada (`\Back`) com as seguintes variáveis:
+
+```bash
 DB_HOST=seu_host
 DB_USER=seu_usuario
 DB_PASSWORD=sua_senha
 DB_NAME=nome_do_banco
+```
+
+
+
+3. Inicie o servidor da API Flask:
+```bash
+python app.py
+```
+
+
+*A API estará acessível por padrão em: `http://localhost:5000` (ou na rota configurada `/api/usuarios`)*.
+
+
+
+---
+
+### 3. Front-end (HTML / CSS)
+
+1. O Front-end é composto por arquivos estáticos.
+
+
+2. Abra o arquivo `index.html` diretamente em qualquer navegador moderno para acessar e utilizar o formulário de cadastro.
