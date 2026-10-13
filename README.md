@@ -64,29 +64,30 @@ Implementação da visualização dos dados registrados:
 
 ## 📁 Estrutura do projeto
 
-Cada Sprint possui sua própria versão do sistema, acompanhada de um README com as orientações específicas para execução daquela entrega.
-
 ```text
-Bitntime/
-│
-├── README.md
-│
-├── Sprint1/
-│   └── README.md
-│
-├── Sprint2/
-│   └── README.md
-│
-├── Sprint3/
-│   └── README.md
-│
-└── Sprint4/
-    └── README.md
-```
-
-Os detalhes de instalação, configuração e execução devem ser consultados no `README.md` correspondente a cada Sprint.
-
----
+bitntime/
+    ├── README.md
+    ├── BD/
+    |    └── CREATE TABLE.sql
+    ├── Back/
+       ├── app.py
+       ├── repository.py
+       ├── validators.py
+       ├── static/
+       |    └── css/
+       |        └── OK (AC2): style.css
+       └── templates/
+          ├── OK (AC2): base.html
+          ├── OK (AC2): inicio.html     
+          ├── OK (AC1): cadastro.html   
+          ├── OK (AC2): config_alerta.html
+          ├── OK (AC2): retorno_cadastro_erro.html
+          ├── OK (AC2): retorno_cadastro_sucesso.html
+          ├── MODIFICAR: login.html                   
+          ├── FAZER: menu.html 
+          ├── FAZER: base_logada.html
+          ├── .html  
+          └── .html      
 
 ## 🔄 Evolução do sistema
 
@@ -115,7 +116,7 @@ Cada entrega utiliza como base o que foi desenvolvido nas etapas anteriores, per
 | Sprint   | Funcionalidade          | Status      |
 | -------- | ----------------------- | ----------- |
 | Sprint 1 | Cadastro de usuário     | ✅ Concluída |
-| Sprint 2 | Configuração de alertas | 🔲 Pendente |
+| Sprint 2 | Configuração de alertas | ✅ Concluída |
 | Sprint 3 | Alertas por e-mail      | 🔲 Pendente |
 | Sprint 4 | Dashboard               | 🔲 Pendente |
 
