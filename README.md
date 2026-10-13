@@ -8,7 +8,7 @@ O Bitntime permite que o usuário acompanhe a variação do preço do Bitcoin e 
 
 Quando a variação definida pelo usuário é atingida, o sistema gera um alerta por e-mail. Os alertas são armazenados para permitir consultas e análises posteriores.
 
-O projeto foi desenvolvido de forma incremental, utilizando quatro Sprints, nas quais novas funcionalidades são adicionadas ao sistema.
+O projeto está sendo desenvolvido de forma incremental, utilizando quatro Sprints, nas quais novas funcionalidades são adicionadas ao sistema.
 
 ---
 
@@ -69,7 +69,7 @@ bitntime/
     ├── README.md
     ├── BD/
     |    └── CREATE TABLE.sql
-    ├── Back/
+    └── Back/
        ├── app.py
        ├── repository.py
        ├── validators.py
@@ -87,7 +87,8 @@ bitntime/
           ├── FAZER: menu.html 
           ├── FAZER: base_logada.html
           ├── .html  
-          └── .html      
+          └── .html  
+```
 
 ## 🔄 Evolução do sistema
 
