@@ -85,9 +85,7 @@ bitntime/
           ├── OK (AC2): retorno_cadastro_sucesso.html
           ├── MODIFICAR: login.html                   
           ├── FAZER: menu.html 
-          ├── FAZER: base_logada.html
-          ├── .html  
-          └── .html  
+          └── FAZER: base_logada.html 
 ```
 
 ## 🔄 Evolução do sistema
@@ -122,6 +120,17 @@ Cada entrega utiliza como base o que foi desenvolvido nas etapas anteriores, per
 | Sprint 4 | Dashboard               | 🔲 Pendente |
 
 ---
+
+## ⚙️ Configurações
+
+Para rodar o projeto localmente, crie um arquivo `.env` com as seguintes variáveis:
+
+```env
+DB_HOST=seu_host
+DB_USER=seu_usuario
+DB_PASSWORD=sua_senha
+DB_NAME=nome_do_banco
+FLASK_SECRET_KEY=sua_senha
 
 ## 👨‍💻 Projeto acadêmico
 
