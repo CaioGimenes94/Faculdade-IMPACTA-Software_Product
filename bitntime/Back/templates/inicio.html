@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Bitntime - Início{% endblock %}
+
+{% block content %}
+
+<main class="container">
+
+    <p class="brand">Bitntime</p>
+
+    <h1>Bem-vindo ao Bitntime!</h1>
+
+    <p class="description">
+        Acompanhe as movimentações do Bitcoin e configure alertas
+        para ficar por dentro das variações de preço.
+    </p>
+
+    <div class="actions">
+        <section class="action-section">
+            <h2>É novo por aqui?</h2>
+            <p>Cadastre-se para começar a utilizar o Bitntime.</p>
+            
+            <a href="{{ url_for('cadastro') }}">Cadastrar</a>
+        </section>
+        <section class="action-section">
+            <p>Acesse sua conta para continuar.</p>
+            <a href="{{ url_for('tela_login') }}" class="button-cadastro">Login</a>
+        </section>
+
+    </div>
+
+</main>
+
+{% endblock %}

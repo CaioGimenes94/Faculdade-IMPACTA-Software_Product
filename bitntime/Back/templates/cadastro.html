@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}Bitntime - Início{% endblock %}
+
+{% block content %}
+
+<body>
+
+    <div class="container">
+        <p class="brand">Bitntime</p>
+        <h1>Cadastro de Usuário</h1>
+        
+
+        <form action="/api/usuarios" method="POST">
+            
+            <!-- Campo Nome -->
+            <div class="form-group">
+                <label for="nome">Nome Completo</label>
+                <input type="text" id="nome" name="nome" required placeholder="Digite seu nome completo">
+            </div>
+
+            <!-- Campo CPF -->
+            <div class="form-group">
+                <label for="cpf">CPF</label>
+                <input type="text" id="cpf" name="cpf" required pattern="\d{11}" maxlength="11" placeholder="Somente números (11 dígitos)" title="Digite apenas os 11 números do CPF">
+                <small class="helper-text">Digite apenas os 11 dígitos, sem pontos ou hífen.</small>
+            </div>
+
+            <!-- Campo E-mail -->
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" name="email" required placeholder="exemplo@email.com">
+            </div>
+
+            <!-- Campo Data de Nascimento -->
+            <div class="form-group">
+                <label for="data_nascimento">Data de Nascimento</label>
+                <input type="date" id="data_nascimento" name="data_nascimento" required>
+            </div>
+
+            <!-- Campo Gênero -->
+
+            <div class="form-group">
+                <label>Gênero</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="genero" value="F" required> Feminino</label>
+                    <label><input type="radio" name="genero" value="M" required> Masculino</label>
+                    <label><input type="radio" name="genero" value="O" required> Outro</label>
+                </div>
+            </div>
+
+            <!-- Campo UF -->
+            <div class="form-group">
+                <label for="uf">Estado (UF)</label>
+                <select id="uf" name="uf" required>
+                    <option value="">Selecione um estado...</option>
+                    <option value="AC">Acre</option>
+                    <option value="AL">Alagoas</option>
+                    <option value="AP">Amapá</option>
+                    <option value="AM">Amazonas</option>
+                    <option value="BA">Bahia</option>
+                    <option value="CE">Ceará</option>
+                    <option value="DF">Distrito Federal</option>
+                    <option value="ES">Espírito Santo</option>
+                    <option value="GO">Goiás</option>
+                    <option value="MA">Maranhão</option>
+                    <option value="MT">Mato Grosso</option>
+                    <option value="MS">Mato Grosso do Sul</option>
+                    <option value="MG">Minas Gerais</option>
+                    <option value="PA">Pará</option>
+                    <option value="PB">Paraíba</option>
+                    <option value="PR">Paraná</option>
+                    <option value="PE">Pernambuco</option>
+                    <option value="PI">Piauí</option>
+                    <option value="RJ">Rio de Janeiro</option>
+                    <option value="RN">Rio Grande do Norte</option>
+                    <option value="RS">Rio Grande do Sul</option>
+                    <option value="RO">Rondônia</option>
+                    <option value="RR">Roraima</option>
+                    <option value="SC">Santa Catarina</option>
+                    <option value="SP">São Paulo</option>
+                    <option value="SE">Sergipe</option>
+                    <option value="TO">Tocantins</option>
+                </select>
+            </div>
+
+            <!-- Botão de Envio -->
+            <button type="submit">Cadastrar</button>
+            
+        </form>
+    </div>
+
+</body>
+
+{% endblock %}

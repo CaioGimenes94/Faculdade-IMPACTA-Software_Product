@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Bitntime - Início{% endblock %}
+
+{% block content %}
+
+<body>
+
+    <div class="container">
+        <p class="brand">Bitntime</p>
+        <h1>Configuração do Alerta</h1>
+        <h2>Olá, {{ nome }}!</h2>
+        <p>O alerta será enviado para o email cadastrado:</p>
+        <h4>{{ email }}</h4>
+        <p class="description">
+            Vamos continuar agora configurando como você quer
+            ser alertado.
+        </p>
+
+        
+
+        <form action="/api/config_alerta" method="POST">
+            
+            <!-- Campo R% vs U$ -->
+            <div class="form-group">
+                <label>Quer receber o valor do Bitcoin em Reais ou em Dólar?</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="tipo" value="reais" required> Reais (R$)</label>
+                    <label><input type="radio" name="tipo" value="dolar" required> Dólar (U$)</label>
+            </div>
+            
+            <!-- Variação percentual -->
+            <div class="form-group">
+                <label for="pct">Qual percentual de variação quer o alerta?</label>
+                <select id="pct" name="pct" required>
+                    <option value= 0.1>0,1%</option>
+                    <option value= 1>1%</option>
+                    <option value= 5>5%</option>
+                    <option value= 10>10%</option>
+                </select>
+            </div>
+
+            <!-- Botão de Envio -->
+            <button type="submit">Configurar Alerta</button>
+            
+        </form>
+    </div>
+
+</body>
+
+{% endblock %}
