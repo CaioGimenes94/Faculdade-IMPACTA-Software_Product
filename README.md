@@ -1,4 +1,4 @@
-# Bitntime — Monitoramento de Bitcoin
+# BiTnTime — Monitoramento de Bitcoin
 
 Sistema web desenvolvido para monitoramento do preço do Bitcoin e geração de alertas com base em variações percentuais configuradas pelo usuário.
 
