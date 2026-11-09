@@ -42,14 +42,15 @@ Implementação da configuração das preferências de monitoramento:
 * Associação da configuração ao usuário
 * Persistência das configurações no banco
 
-### Sprint 3 — Alertas por e-mail
+### Sprint 3 — Alertas
 
 Implementação do mecanismo de alerta:
 
 * Monitoramento da variação do Bitcoin
 * Identificação do atingimento da variação configurada
-* Envio do alerta por e-mail
-* Registro dos alertas disparados
+* Exibição do último alerta na tela inical do usuário.
+* Exibição do preço atual do bitcoin na tela inical do usuário..
+* Registro em BD dos alertas disparados
 
 ### Sprint 4 — Dashboard
 
@@ -73,6 +74,7 @@ bitntime/
        ├── app.py
        ├── repository.py
        ├── validators.py
+       ├── worker_01.py OK (AC3)
        ├── static/
        |    └── css/
        |        └── OK (AC2): style.css
@@ -83,9 +85,10 @@ bitntime/
           ├── OK (AC2): config_alerta.html
           ├── OK (AC2): retorno_cadastro_erro.html
           ├── OK (AC2): retorno_cadastro_sucesso.html
-          ├── MODIFICAR: login.html                   
-          ├── FAZER: menu.html 
-          └── FAZER: base_logada.html 
+          ├── OK (AC3): retorno_login_erro.html
+          ├── OK (AC3): login.html                   
+          ├── OK (AC3): menu.html 
+          └── OK (AC3): base_logada.html 
 ```
 
 ## 🔄 Evolução do sistema
@@ -100,7 +103,7 @@ Sprint 2
 Configuração de alertas
         ↓
 Sprint 3
-Envio e registro dos alertas
+Exibição e registro dos alertas
         ↓
 Sprint 4
 Dashboard e histórico
@@ -116,8 +119,8 @@ Cada entrega utiliza como base o que foi desenvolvido nas etapas anteriores, per
 | -------- | ----------------------- | ----------- |
 | Sprint 1 | Cadastro de usuário     | ✅ Concluída |
 | Sprint 2 | Configuração de alertas | ✅ Concluída |
-| Sprint 3 | Alertas por e-mail      | 🔲 Pendente |
-| Sprint 4 | Dashboard               | 🔲 Pendente |
+| Sprint 3 | Alertas na web          | ✅ Concluída |
+| Sprint 4 | Dashboard e histórico   | 🔲 Pendente |
 
 ---
 
@@ -131,6 +134,7 @@ DB_USER=seu_usuario
 DB_PASSWORD=sua_senha
 DB_NAME=nome_do_banco
 FLASK_SECRET_KEY=sua_senha
+```
 
 ## 👨‍💻 Projeto acadêmico
 
