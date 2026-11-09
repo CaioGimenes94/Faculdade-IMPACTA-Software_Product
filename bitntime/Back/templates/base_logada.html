@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Bitntime - Painel{% endblock %}</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+    <main class="container">
+
+        <!-- CABEÇALHO: Marca e Botão Sair alinhados lado a lado -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-xl);">
+            <p class="brand" style="margin: 0;">Bitntime</p>
+            <a href="{{ url_for('inicio') }}" class="btn-sair">Sair</a>
+        </div>
+
+        <!-- MENU DE NAVEGAÇÃO SUPERIOR -->
+        <div class="form-group" style="display: flex; gap: 10px; margin-bottom: var(--spacing-3xl);">
+            <a href="#" class="btn-voltar" style="text-align: center; margin-top: 0;">Configurar Alerta</a>
+            <a href="#" class="btn-voltar" style="text-align: center; margin-top: 0;">Histórico</a>
+            <a href="#" class="btn-voltar" style="text-align: center; margin-top: 0;">Alterar Cadastro</a>
+        </div>
+
+        <!-- últimos preços -->
+        
+        <div class="form-group" style="display: flex; gap: 60px; margin-bottom: var(--spacing-2xl);">
+            <!-- Bloco 1: Preço Atual Personalizado -->
+            <section class="action-section">
+                <h2>Cotação Atual do Bitcoin</h2>
+                
+                <p style="font-size: 24px; font-weight: bold; color: var(--color-primary);">
+                    {% if ultimo_preco %}
+                        {% if tipo_moeda == 'DOLAR' %}
+                            US$ {{ "%.2f"|format(ultimo_preco.preco_dolar) }}
+                        {% else %}
+                            R$ {{ "%.2f"|format(ultimo_preco.preco_reais) }}
+                        {% endif %}
+                    {% else %}
+                        Aguardando cotação do worker...
+                    {% endif %}
+                </p>
+                <p style="font-size: var(--font-size-small); color: var(--color-text-muted);">
+                        Atualizado em: {{ ultimo_preco.created_at }}
+                </p>
+            </section>
+
+            <!-- Bloco 2: Último Alerta Recebido -->
+            <section class="action-section">
+                <h2>Último Alerta Registrado</h2>
+                
+                {% if ultimo_alerta %}
+                    <p>
+                        <strong>Direção:</strong> 
+                        <span style="color: {% if ultimo_alerta.direcao == 'ALTA' %}#27ae60{% else %}#c0392b{% endif %}; font-weight: bold;">
+                            {{ ultimo_alerta.direcao }}
+                        </span>
+                    </p>
+                    <p>
+                        <strong>Preço no disparo:</strong> 
+                        {% if tipo_moeda == 'DOLAR' %}
+                            US$ {{ "%.2f"|format(ultimo_alerta.preco_dolar) }}
+                        {% else %}
+                            R$ {{ "%.2f"|format(ultimo_alerta.preco_reais) }}
+                        {% endif %}
+                    </p>
+                    <p style="font-size: var(--font-size-small); color: var(--color-text-muted);">
+                        Registrado em: {{ ultimo_alerta.created_at }}
+                    </p>
+                {% else %}
+                    <p style="color: var(--color-text-muted);">
+                        Nenhum alerta disparado até o momento. Seus monitoramentos estão ativos!
+                    </p>
+                {% endif %}
+            </section>
+        </div>
+
+        <!-- CONTEÚDO DINÂMICO DA PÁGINA -->
+        {% block content %}
+        {% endblock %}
+
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+=========================================================================================================
+Checklist — Ativar servidor MySQL local
+=========================================================================================================
+1. Quando a aplicação Python não conseguir conectar ao MySQL, verifique se o serviço está ativo.
+2. Pressione Win + R, digite services.msc e pressione Enter.
+3. Localize MySQL80 e confira se está parado.
+4. Pressione Win + R novamente e digite powershell.
+5. Pressione Ctrl + Shift + Enter para abrir como administrador.
+6. Execute: Start-Service -Name MySQL80
+7. Para confirmar: Get-Service -Name MySQL80
+8. Se retornar Running, o servidor está ativo e pronto para uso.
+Observação: mantenha a inicialização como Manual. Assim, o MySQL só ficará ativo quando você precisar.
+
+=========================================================================================================
+Checklist — Rodar o app.py
+=========================================================================================================
+1. Quando a aplicação Python não conseguir rodar o app.py, pode ser que não esteja na pasta do projeto.
+2. Verificar se está na pasta correta   --> PS C:\Users\caio.alves.o2b_dotz\Desktop\trabalho_faculdade\bitntime\Back>
+    1.1: se sim, executar o comando     --> C:/Users/caio.alves.o2b_dotz/AppData/Local/Programs/Python/Python313/python.exe app.py.
+    1.2: SE NÃO, vericar qual pasta está e navegar para a pasta indicada. Comandos exemplo : cd bitntime\Back ou cd Back (esse foi o que funcionou da última vez)
+        1.2.1: Após navegar até a pasta correta, repetir o comando do passo 1.1
+        

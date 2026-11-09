@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Bitntime - Início{% endblock %}
+
+{% block content %}
+
+<body>
+
+    <div class="container">
+        <p class="brand">Bitntime</p>
+        <h1>Identificação do usuário</h1>
+        <p class="description">
+        Informe seu e-mail cadastrado para continuar.
+        </p>
+
+        <form action="/fazer-login" method="POST">
+            
+            <!-- Campo E-mail -->
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" name="email" required placeholder="exemplo@email.com">
+            </div>
+
+            <!-- Botão de Envio -->
+            <button type="submit">Entrar</button>
+            
+        </form>
+    </div>
+
+</body>
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Bitntime - Início{% endblock %}
+
+{% block content %}
+<body>
+
+    <div class="container">
+        <p class="brand">Bitntime</p>
+        <h2>Erro!</h2>
+        <p> {{ erro }}</p>         
+        <section class="action-section">
+            <a href="{{ url_for('login') }}" class="button-cadastro">Tentar novamente</a>
+        </section>
+    </div>
+
+</body>
+{% endblock %}
+

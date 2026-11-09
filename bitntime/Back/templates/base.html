@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Bitntime{% endblock %}</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    {% block extra_css %}{% endblock %}
+</head>
+
+<!-- CÓDIGO SUGERIDO (HTML): Adicionando o botão de retorno global no base.html -->
+<body>
+    <!-- NOVO/AJUSTE: Botão home fixo disponível em todas as páginas que herdam o base.html -->
+    <div class="form-group">
+        <a href="{{ url_for('inicio') }}" class="btn-voltar">Home</a>
+    </div>
+
+    <!-- O bloco onde o conteúdo específico de cada página (como o cadastro) será injetado -->
+    {% block content %}
+    {% endblock %}
+</body>
+
+</html>
