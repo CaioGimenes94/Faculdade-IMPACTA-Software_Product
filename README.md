@@ -6,7 +6,7 @@ Sistema web desenvolvido para monitoramento do preço do Bitcoin e geração de 
 
 O Bitntime permite que o usuário acompanhe a variação do preço do Bitcoin e configure alertas personalizados.
 
-Quando a variação definida pelo usuário é atingida, o sistema gera um alerta por e-mail. Os alertas são armazenados para permitir consultas e análises posteriores.
+Quando a variação definida pelo usuário é atingida, o sistema gera um alerta visual diretamente na interface web. Os alertas são armazenados para permitir consultas e análises posteriores.
 
 O projeto está sendo desenvolvido de forma incremental, utilizando quatro Sprints, nas quais novas funcionalidades são adicionadas ao sistema.
 
@@ -48,8 +48,8 @@ Implementação do mecanismo de alerta:
 
 * Monitoramento da variação do Bitcoin
 * Identificação do atingimento da variação configurada
-* Exibição do último alerta na tela inical do usuário.
-* Exibição do preço atual do bitcoin na tela inical do usuário..
+* Exibição do último alerta na tela inicial do usuário.
+* Exibição do preço atual do bitcoin na tela inicial do usuário.
 * Registro em BD dos alertas disparados
 
 ### Sprint 4 — Dashboard
@@ -125,8 +125,10 @@ Cada entrega utiliza como base o que foi desenvolvido nas etapas anteriores, per
 ---
 
 ## ⚙️ Configurações
-
-Para rodar o projeto localmente, crie um arquivo `.env` com as seguintes variáveis:
+Para rodar o projeto localmente: 
+1. Certifique-se que tenha o Mysql e o Python instalados e configurados;
+2. Instale todas as bibliotecas necessárias no Python;
+3. Crie um arquivo `.env` com as seguintes variáveis:
 
 ```env
 DB_HOST=seu_host
