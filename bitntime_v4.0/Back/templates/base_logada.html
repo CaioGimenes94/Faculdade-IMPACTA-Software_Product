@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Bitntime - Painel{% endblock %}</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+    <main class="container">
+
+        <!-- CABEÇALHO: Marca e Botão Sair alinhados lado a lado -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-xl);">
+            
+            <div>
+                <a  href="{{ url_for('menu') }}" 
+                    class="btn-voltar {% if request.endpoint == 'menu' %}ativo{% endif %}">
+                    Início
+                </a>                     
+            </div>
+
+            <form action="{{ url_for('sair') }}" method="POST">
+                <button class="btn-sair">Sair</button>
+            </form>                    
+
+        </div>
+
+        <!-- MENU DE NAVEGAÇÃO SUPERIOR -->
+
+        <div class="form-group" style="display: flex; gap: 10px; margin-bottom: var(--spacing-3xl);">
+            <a  href="{{ url_for('historico_alertas') }}"
+                class="btn-voltar {% if request.endpoint == 'historico_alertas' %}ativo{% endif %}" 
+                style="text-align: center; margin-top: 0;">Histórico
+            </a>
+            <a  href="{{ url_for('alterar_alerta') }}" 
+                class="btn-voltar {% if request.endpoint == 'alterar_alerta' %}ativo{% endif %}"
+                style="text-align: center; margin-top: 0;">
+                Alterar Alerta
+            </a> 
+            <a  href="{{ url_for('alterar_cadastro') }}"
+                class="btn-voltar {% if request.endpoint == 'alterar_cadastro' %}ativo{% endif %}"
+                style="text-align: center; margin-top: 0;">
+                Atualizar Cadastro
+            </a>       
+        </div>
+
+        <!-- ÚLTIMOS PREÇOS / PAINEL COMPACTO -->
+        <div class="status-bar">
+            
+            <!-- Bloco 1: Preço Atual -->
+            <div class="status-item">
+                <span class="status-label">Última cotação do BTC:</span>
+                <span class="status-value">
+                    {% if ultimo_preco %}
+                        {% if tipo_moeda == 'DOLAR' %}
+                            US$ {{ "%.2f"|format(ultimo_preco.preco_dolar) }}
+                        {% else %}
+                            R$ {{ "%.2f"|format(ultimo_preco.preco_reais) }}
+                        {% endif %}
+                    {% else %}
+                        Aguardando...
+                    {% endif %}
+                </span>
+                <span class="status-date">({{ ultimo_preco.created_at.strftime('%Y-%m-%d %H:%M:%S') if ultimo_preco else '' }})</span>
+            </div>
+
+            <div class="status-divider"></div>
+
+            <!-- Bloco 2: Último Alerta -->
+            <div class="status-item">
+                <span class="status-label">Último Alerta:</span>
+                {% if ultimo_alerta %}
+                    <span class="status-badge {% if ultimo_alerta.direcao == 'ALTA' %}badge-alta{% else %}badge-baixa{% endif %}">
+                        {{ ultimo_alerta.direcao }}
+                    </span>
+                    <span class="status-value">
+                        {% if tipo_moeda == 'DOLAR' %}
+                            US$ {{ "%.2f"|format(ultimo_alerta.preco_dolar) }}
+                        {% else %}
+                            R$ {{ "%.2f"|format(ultimo_alerta.preco_reais) }}
+                        {% endif %}
+                    </span>
+                {% else %}
+                    <span class="status-date">Nenhum disparo</span>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- CONTEÚDO DINÂMICO DA PÁGINA -->
+        {% block content %}
+        {% endblock %}
+
+    </main>
+
+</body>
+</html>

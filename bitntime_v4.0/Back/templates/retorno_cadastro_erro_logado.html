@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>{% block title %}Bitntime - Painel{% endblock %}</title>
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+        {% block extra_css %}{% endblock %}
+    </head>
+    <body>
+        <main class="container">
+            <!-- CABEÇALHO: Marca e Botão Sair alinhados lado a lado -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-xl);">
+                <div> 
+                    <a  href="{{ url_for('menu') }}" 
+                        class="btn-voltar {% if request.endpoint == 'menu' %}ativo{% endif %}">
+                        Início
+                    </a>                     
+                </div>
+                <div>
+                    <h2>Erro!</h2>
+                    <p> {{ erro }}</p>
+                </div>  
+                <form action="{{ url_for('sair') }}" method="POST">
+                    <button class="btn-sair">Sair</button>
+                </form>                    
+            </div>
+            <section class="action-section">
+                <a href="{{ url_for('alterar_cadastro') }}" class="button-cadastro">Tentar novamente</a>
+            </section>
+             
+        </main>
+
+    </body>
+</html>

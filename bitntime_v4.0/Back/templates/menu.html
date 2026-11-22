@@ -1,0 +1,97 @@
+{% extends "base_logada.html" %}
+
+{% block title %}Bitntime - Painel Principal{% endblock %}
+
+{% block extra_css %}
+<style>
+    .menu-content {
+        text-align: left;
+    }
+
+    .alerta-resumo-box {
+        padding: var(--spacing-lg) var(--spacing-xl);
+        background-color: #f8f9fa;
+        border: 1px solid var(--color-border);
+        border-left: 4px solid var(--color-primary);
+        border-radius: var(--radius-md);
+        margin-bottom: var(--spacing-xl);
+        font-size: var(--font-size-base);
+        line-height: 1.5;
+        color: var(--color-heading);
+    }
+
+    .alerta-resumo-box a {
+        color: var(--color-primary);
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+    .alerta-resumo-box a:hover {
+        color: var(--color-primary-hover);
+        text-decoration: underline;
+    }
+
+    .guia-menu-box {
+        padding: var(--spacing-lg) var(--spacing-xl);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+        background-color: var(--color-surface);
+    }
+
+    .guia-menu-box h2 {
+        margin-top: 0;
+        margin-bottom: var(--spacing-md);
+        font-size: 16px;
+        color: var(--color-heading);
+    }
+
+    .guia-lista {
+        margin: 0;
+        padding-left: 18px;
+        font-size: var(--font-size-small);
+        line-height: 1.65;
+        color: var(--color-text);
+    }
+
+    .guia-lista li {
+        margin-bottom: 6px;
+    }
+
+    .guia-lista li:last-child {
+        margin-bottom: 0;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="menu-content">
+    <div class="alerta-resumo-box">
+        {% if config_alerta %}
+            {% set pct_exibicao = (config_alerta.percentual * 100) | round(2) %}
+            {% set moeda_exibicao = 'Dólar' if config_alerta.tipo == 'DOLAR' else 'Reais' %}
+            Alerta configurado:
+            <strong>{{ pct_exibicao }}%</strong>
+            na cotação em
+            <strong>{{ moeda_exibicao }}</strong>.
+        {% else %}
+            Você ainda não possui um alerta configurado.
+            Clique em <a href="{{ url_for('alterar_alerta') }}">Alterar Alerta</a> para definir sua moeda e percentual.
+        {% endif %}
+    </div>
+
+    <div class="guia-menu-box">
+        <h2>O que você pode fazer por aqui</h2>
+        <ul class="guia-lista">
+            <li>
+                <strong>Histórico:</strong> acompanhe o gráfico de variação percentual do Bitcoin em BRL e USD (em 24h, 7d ou 30d) e consulte os últimos 10 alertas disparados para você.
+            </li>
+            <li>
+                <strong>Alterar Alerta:</strong> escolha a moeda de referência (Reais ou Dólar) e o percentual de variação para novos disparos.
+            </li>
+            <li>
+                <strong>Alterar Cadastro:</strong> atualize seu e-mail ou UF quando precisar.
+            </li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

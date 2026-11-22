@@ -1,0 +1,312 @@
+{% extends "base_logada.html" %}
+
+{% block title %}Bitntime - Histórico{% endblock %}
+
+{% block extra_css %}
+<style>
+
+    .page-header-title {
+        text-align: center;
+        margin-bottom: var(--spacing-2xl);
+    }
+
+    .section-card {
+        padding: var(--spacing-xl);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+        background-color: var(--color-surface);
+        margin-bottom: var(--spacing-2xl);
+    }
+
+    .section-card h2 {
+        margin-top: 0;
+        margin-bottom: var(--spacing-lg);
+        font-size: 18px;
+        color: var(--color-heading);
+    }
+
+    /* Seletor de períodos (24h, 7d, 30d) */
+    .periodo-bar {
+        display: flex;
+        gap: var(--spacing-md);
+        flex-wrap: wrap;
+        margin-bottom: var(--spacing-lg);
+    }
+
+    .periodo-link {
+        display: inline-block;
+        padding: 8px 14px;
+        border: 1px solid var(--color-primary);
+        border-radius: var(--radius-md);
+        color: var(--color-primary);
+        text-decoration: none;
+        font-size: var(--font-size-small);
+        font-weight: 700;
+        transition: background-color var(--transition-fast), color var(--transition-fast);
+    }
+
+    .periodo-link:hover {
+        background-color: rgba(52, 152, 219, 0.1);
+    }
+
+    .periodo-link.ativo {
+        background-color: var(--color-primary);
+        color: var(--color-surface);
+    }
+
+    /* Resumo da variação total por moeda */
+    .resumo-variacao {
+        display: flex;
+        gap: var(--spacing-lg);
+        flex-wrap: wrap;
+        margin-bottom: var(--spacing-xl);
+    }
+
+    .resumo-box {
+        flex: 1;
+        min-width: 180px;
+        padding: 12px 14px;
+        background-color: #f8f9fa;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+    }
+
+    .resumo-label {
+        display: block;
+        font-size: var(--font-size-small);
+        color: var(--color-heading);
+        font-weight: 600;
+        margin-bottom: 4px;
+    }
+
+    .resumo-valor {
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    .var-positiva {
+        color: #27ae60;
+    }
+
+    .var-negativa {
+        color: #e74c3c;
+    }
+
+    .var-neutra {
+        color: var(--color-heading);
+    }
+
+    .chart-wrapper {
+        position: relative;
+        width: 100%;
+        min-height: 280px;
+    }
+
+    .empty-msg {
+        padding: var(--spacing-lg);
+        background-color: #f8f9fa;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+        color: var(--color-heading);
+        font-size: var(--font-size-base);
+        text-align: center;
+    }
+
+    /* Tabela compacta de histórico de alertas */
+    .tabela-alertas {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: var(--font-size-base);
+    }
+
+    .tabela-alertas th,
+    .tabela-alertas td {
+        padding: 10px 12px;
+        border-bottom: 1px solid var(--color-border);
+        text-align: left;
+    }
+
+    .tabela-alertas th {
+        color: var(--color-heading);
+        font-size: var(--font-size-small);
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        background-color: #f8f9fa;
+    }
+
+    .tabela-alertas tr:last-child td {
+        border-bottom: none;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- SEÇÃO 1: HISTÓRICO DE PREÇO DO BITCOIN -->
+<section class="section-card">
+    <h2>Histórico de Preço do Bitcoin (Variação %)</h2>
+
+    <div class="periodo-bar">
+        <a href="{{ url_for('historico_alertas', periodo='24h') }}"
+           class="periodo-link {% if periodo_selecionado == '24h' %}ativo{% endif %}">
+            Últimas 24 horas
+        </a>
+        <a href="{{ url_for('historico_alertas', periodo='7d') }}"
+           class="periodo-link {% if periodo_selecionado == '7d' %}ativo{% endif %}">
+            Últimos 7 dias
+        </a>
+        <a href="{{ url_for('historico_alertas', periodo='30d') }}"
+           class="periodo-link {% if periodo_selecionado == '30d' %}ativo{% endif %}">
+            Últimos 30 dias
+        </a>
+    </div>
+
+    {% if serie_preco.tem_dados %}
+        {% set var_brl = serie_preco.variacao_total_brl %}
+        {% set var_usd = serie_preco.variacao_total_usd %}
+
+        <div class="resumo-variacao">
+            <div class="resumo-box">
+                <span class="resumo-label">Variação Total — BTC em BRL</span>
+                <span class="resumo-valor {% if var_brl > 0 %}var-positiva{% elif var_brl < 0 %}var-negativa{% else %}var-neutra{% endif %}">
+                    {{ "%+.2f"|format(var_brl) }}%
+                </span>
+            </div>
+
+            <div class="resumo-box">
+                <span class="resumo-label">Variação Total — BTC em USD</span>
+                <span class="resumo-valor {% if var_usd > 0 %}var-positiva{% elif var_usd < 0 %}var-negativa{% else %}var-neutra{% endif %}">
+                    {{ "%+.2f"|format(var_usd) }}%
+                </span>
+            </div>
+        </div>
+
+        <div class="chart-wrapper">
+            <canvas id="graficoHistoricoBtc"></canvas>
+        </div>
+    {% else %}
+        <p class="empty-msg">
+            Não há cotações registradas para o período selecionado.
+        </p>
+    {% endif %}
+</section>
+
+<!-- SEÇÃO 2: HISTÓRICO DE ALERTAS DO USUÁRIO -->
+<section class="section-card">
+    <h2>Últimos 10 Alertas Disparados</h2>
+
+    {% if alertas_historico %}
+        <table class="tabela-alertas">
+            <thead>
+                <tr>
+                    <th>Data / Hora</th>
+                    <th>Direção</th>
+                    <th>Cotação</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for alerta in alertas_historico %}
+                    <tr>
+                        <td>{{ alerta.data_hora }}</td>
+                        <td>
+                            <span class="status-badge {% if alerta.direcao == 'ALTA' %}badge-alta{% else %}badge-baixa{% endif %}">
+                                {{ alerta.direcao }}
+                            </span>
+                        </td>
+                        <td>
+                            {% if alerta.cotacao is not none %}
+                                {% if alerta.moeda == 'USD' %}
+                                    US$ {{ "%.2f"|format(alerta.cotacao) }}
+                                {% else %}
+                                    R$ {{ "%.2f"|format(alerta.cotacao) }}
+                                {% endif %}
+                            {% else %}
+                                —
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="empty-msg">
+            Nenhum alerta disparado até o momento para a sua configuração.
+        </p>
+    {% endif %}
+</section>
+
+{% if serie_preco.tem_dados %}
+    <!-- Chart.js servido localmente (sem CDN) -->
+    <script src="{{ url_for('static', filename='js/chart.umd.min.js') }}"></script>
+    <script>
+        (function () {
+            const canvas = document.getElementById('graficoHistoricoBtc');
+            if (!canvas || typeof Chart === 'undefined') {
+                return;
+            }
+
+            const labels = {{ serie_preco.labels | tojson }};
+            const dadosBrl = {{ serie_preco.variacao_brl | tojson }};
+            const dadosUsd = {{ serie_preco.variacao_usd | tojson }};
+
+            new Chart(canvas, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'BTC em BRL (%)',
+                            data: dadosBrl,
+                            borderColor: '#27ae60',
+                            backgroundColor: 'rgba(39, 174, 96, 0.12)',
+                            borderWidth: 2,
+                            pointRadius: 2,
+                            tension: 0.2
+                        },
+                        {
+                            label: 'BTC em USD (%)',
+                            data: dadosUsd,
+                            borderColor: '#3498db',
+                            backgroundColor: 'rgba(52, 152, 219, 0.12)',
+                            borderWidth: 2,
+                            pointRadius: 2,
+                            tension: 0.2
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function (ctx) {
+                                    const val = Number(ctx.parsed.y || 0).toFixed(2);
+                                    const sinal = ctx.parsed.y > 0 ? '+' : '';
+                                    return `${ctx.dataset.label}: ${sinal}${val}%`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            ticks: {
+                                callback: function (value) {
+                                    return `${Number(value).toFixed(1)}%`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        })();
+    </script>
+{% endif %}
+{% endblock %}

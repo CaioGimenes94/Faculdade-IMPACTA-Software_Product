@@ -1,0 +1,87 @@
+{% extends "base_logada.html" %}
+
+{% block title %}Bitntime - Início{% endblock %}
+
+{% block extra_css %}
+<style>
+    .menu-content {
+        text-align: left;
+    }
+
+    .guia-menu-box {
+        padding: var(--spacing-lg) var(--spacing-xl);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+        background-color: var(--color-surface);
+    }
+
+    .guia-menu-box h2 {
+        margin-top: 0;
+        margin-bottom: var(--spacing-md);
+        font-size: 16px;
+        color: var(--color-heading);
+    }
+
+    .guia-lista {
+        margin: 0;
+        padding-left: 18px;
+        font-size: var(--font-size-small);
+        line-height: 1.65;
+        color: var(--color-text);
+    }
+
+    .guia-lista li {
+        margin-bottom: 6px;
+    }
+
+    .guia-lista li:last-child {
+        margin-bottom: 0;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<body>
+    <div class="alerta-resumo-box">
+        {% if config_alerta %}
+            {% set pct_exibicao = (config_alerta.percentual * 100) | round(2) %}
+            {% set moeda_exibicao = 'Dólar' if config_alerta.tipo == 'DOLAR' else 'Reais' %}
+            Alerta configurado:
+            <strong>{{ pct_exibicao }}%</strong>
+            na cotação em
+            <strong>{{ moeda_exibicao }}</strong>.
+        {% else %}
+            Configure a seguir como gostaria de ser alertado.
+        {% endif %}
+    </div>
+    <div class="container">
+        <form action="{{ url_for('config_alerta') }}" method="POST">
+            
+            <!-- Campo R% vs U$ -->
+            <div class="form-group">
+                <label>Quer receber o valor do Bitcoin em Reais ou em Dólar?</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="tipo" value="reais" required> Reais (R$)</label>
+                    <label><input type="radio" name="tipo" value="dolar" required> Dólar (U$)</label>
+            </div>
+            <p></p>
+            <!-- Variação percentual -->
+            <div class="form-group">
+                <label for="pct">Qual percentual de variação quer o alerta?</label>
+                <select id="pct" name="pct" required>
+                    <option value= 0.01>0,01%</option>
+                    <option value= 1>1%</option>
+                    <option value= 5>5%</option>
+                    <option value= 10>10%</option>
+                </select>
+            </div>
+
+            <!-- Botão de Envio -->
+            <button type="submit">Atualizar Alerta</button>
+            
+        </form>
+    </div>
+
+</body>
+
+{% endblock %}
