@@ -127,7 +127,7 @@ Cada entrega utiliza como base o que foi desenvolvido nas etapas anteriores, per
 | Sprint 1 | Cadastro de usuário     | ✅ Concluída |
 | Sprint 2 | Configuração de alertas | ✅ Concluída |
 | Sprint 3 | Alertas na web          | ✅ Concluída |
-| Sprint 4 | Histórico BTC e alertas do usuário, atulização de dados do cadastro e do alerta   | ✅ Pendente |
+| Sprint 4 | Histórico BTC e alertas do usuário, atulização de dados do cadastro e do alerta   | ✅ Concluída |
 
 ---
 
