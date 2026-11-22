@@ -8,13 +8,13 @@ O Bitntime permite que o usuário acompanhe a variação do preço do Bitcoin e 
 
 Quando a variação definida pelo usuário é atingida, o sistema gera um alerta visual diretamente na interface web. Os alertas são armazenados para permitir consultas e análises posteriores.
 
-O projeto está sendo desenvolvido de forma incremental, utilizando quatro Sprints, nas quais novas funcionalidades são adicionadas ao sistema.
+O projeto foi desenvolvido de forma incremental, utilizando quatro Sprints, nas quais novas funcionalidades foram adicionadas ao sistema.
 
 ---
 
 ## 🛠️ Tecnologias
 
-* **Front-end:** HTML + CSS
+* **Front-end:** HTML + CSS, JavaScript (Chart.js)
 * **Back-end:** Python + Flask
 * **Banco de dados:** MySQL
 * **API externa:** Binance — consulta do preço do Bitcoin
@@ -58,7 +58,7 @@ Implementação da visualização dos dados registrados:
 
 * Consulta do histórico de alertas
 * Visualização das informações
-* Gráfico simples de acompanhamento
+* Gráfico de acompanhamento do preço do BTC em BRL e USD
 * Organização final da navegação do sistema
 
 ---
@@ -76,6 +76,8 @@ bitntime/
        ├── validators.py
        ├── worker_01.py OK (AC3)
        ├── static/
+       |    ├── js/
+       |    |    └── OK (PROVA): chart.umd.min.js
        |    └── css/
        |        └── OK (AC2): style.css
        └── templates/
@@ -88,7 +90,12 @@ bitntime/
           ├── OK (AC3): retorno_login_erro.html
           ├── OK (AC3): login.html                   
           ├── OK (AC3): menu.html 
-          └── OK (AC3): base_logada.html 
+          ├── OK (AC3): base_logada.html
+          ├── OK (PROVA): config_alerta_logado.html
+          ├── OK (PROVA): retorno_cadastro_erro_logado.html
+          ├── OK (PROVA): config_cadastro_logado.html
+          ├── OK (PROVA): historico.html
+          └── OK (PROVA): retorno_cadastro_erro_logado.html
 ```
 
 ## 🔄 Evolução do sistema
@@ -106,7 +113,7 @@ Sprint 3
 Exibição e registro dos alertas
         ↓
 Sprint 4
-Dashboard e histórico
+Histórico (Preço BTC e Alertas) e Atualizações (Alerta e cadastrais)
 ```
 
 Cada entrega utiliza como base o que foi desenvolvido nas etapas anteriores, permitindo a evolução progressiva do Bitntime até sua versão final.
@@ -120,7 +127,7 @@ Cada entrega utiliza como base o que foi desenvolvido nas etapas anteriores, per
 | Sprint 1 | Cadastro de usuário     | ✅ Concluída |
 | Sprint 2 | Configuração de alertas | ✅ Concluída |
 | Sprint 3 | Alertas na web          | ✅ Concluída |
-| Sprint 4 | Dashboard e histórico   | 🔲 Pendente |
+| Sprint 4 | Histórico BTC e alertas do usuário, atulização de dados do cadastro e do alerta   | ✅ Pendente |
 
 ---
 
@@ -128,7 +135,8 @@ Cada entrega utiliza como base o que foi desenvolvido nas etapas anteriores, per
 Para rodar o projeto localmente: 
 1. Certifique-se que tenha o Mysql e o Python instalados e configurados;
 2. Instale todas as bibliotecas necessárias no Python;
-3. Crie um arquivo `.env` com as seguintes variáveis:
+3. Certifique-se que o código do Chart.js e coloque na pasta indicada do projeto.
+4. Crie um arquivo `.env` com as seguintes variáveis:
 
 ```env
 DB_HOST=seu_host
